@@ -6,12 +6,12 @@ public:
         for(int i=0;i<n;i++){
             mapp[nums[i]]=i;
         }
-        for(int i=0;i<n;i++){
-            int diff=target-nums[i];
+        for(int j=0;j<n;j++){
+            int diff=target-nums[j];
             if(mapp.find(diff)!=mapp.end()){
-                int index=mapp[diff];
-                if(index!=i){
-                return {i,index};
+                int index=mapp.at(diff);
+                if(j!=index){
+                    return {j,index};
                 }
             }
         }
