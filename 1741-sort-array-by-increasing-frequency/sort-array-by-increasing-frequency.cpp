@@ -2,15 +2,16 @@ class Solution {
 public:
     vector<int> frequencySort(vector<int>& nums) {
         int n=nums.size();
-        map<int,int>freq;
+        map<int,int>mapp;
         for(int x:nums){
-             freq[x]++;
+            mapp[x]++;
         }
-        sort(nums.begin(),nums.end() ,[&](int a,int b){
-            if(freq[a]==freq[b]){
+        
+        sort(nums.begin(),nums.end(),[&](const int a,const int b){
+            if(mapp[a]==mapp[b]){
                 return a>b;
-            }
-            return freq[a]<freq[b];
+            } 
+            return mapp[a]<mapp[b];
         });
         return nums;
     }
