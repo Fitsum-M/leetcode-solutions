@@ -1,37 +1,35 @@
 class Solution {
 public:
-    int calPoints(vector<string>& operations) {
-        int n=operations.size();
-        stack<int>k;
-        int sum=0;
-        for(int i=0;i<n;i++){
-            if (isdigit(operations[i][0]) || (operations[i][0] == '-' && isdigit(operations[i][1])))
-{
-                int score = stoi(operations[i]);   
-                k.push(score);
-                sum+=score;
+    int calPoints(vector<string>& o) {
+        int n=o.size();
+        stack<int>stk;
+        for(string c:o){
+             if(c=="+"){
+                if (stk.size() < 2) continue;
+                 int temp=stk.top();
+                 stk.pop();
+                 int temp2=stk.top();
+                 stk.push(temp);
+                 int sum=temp2+temp;
+                 stk.push(sum);
             }
-        
-        else if(operations[i]=="C"){
-          
-            sum-=k.top();
-              k.pop();
+            else if(c=="D"){
+                int temp=stk.top()*2;
+                stk.push(temp);
+            }
+            else if(c=="C"){
+                stk.pop();
+            }
+            else{
+                int score=stoi(c);
+                stk.push(score);
+            }
         }
-        else if(operations[i]=="D"){
-            int ad=k.top();
-            int ad3=ad*2;
-              sum=sum+ad3;
-              k.push(ad3);
-        }
-        else if(operations[i]=="+"){
-               int temp=k.top();
-               k.pop();
-               int ad2=k.top()+temp;
-               sum=sum+ad2;
-               k.push(temp);
-               k.push(ad2);
-        }
-        }
-        return sum;
+        int result=0;
+       while(!stk.empty()){
+        result+=stk.top();
+        stk.pop();
+       }
+       return result;
     }
 };
